@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Farm</title>
+</head>
+<body>
+    <h2>Add / Edit Farm</h2>
+    <form th:action="@{/farm/save}" th:object="${farmInfo}" method="post" enctype="multipart/form-data">
+        <label>Pincode:</label>
+        <input type="text" th:field="*{pincode}" placeholder="Enter Pincode" required/><br><br>
+
+        <label>Soil Type:</label>
+        <input type="text" th:field="*{soilType}" placeholder="Enter Soil Type" required/><br><br>
+
+        <label>Irrigation Type:</label>
+        <input type="text" th:field="*{irrigationType}" placeholder="Enter Irrigation Type" required/><br><br>
+
+        <label>Water Resource:</label>
+        <input type="text" th:field="*{waterResource}" placeholder="Enter Water Resource" required/><br><br>
+
+        <label>Area (in acres):</label>
+        <input type="number" step="0.01" th:field="*{area}" placeholder="Enter Area" required/><br><br>
+
+        <label>Farm Image (Base64):</label>
+        <input type="text" th:field="*{farmImage}" placeholder="Enter Base64 Image String"/><br><br>
+
+        <button type="submit">Save Farm</button>
+    </form>
+    <br>
+    <a href="/farm/list">View All Farms</a>
+</body>
+</html>

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Krishi Sakhi</title>
+    <meta name="description" content="A modern smart farming platform to monitor crops, optimize irrigation, and maximize yields.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+  <body class="bg-neutral-950 text-neutral-100 antialiased scroll-smooth selection:bg-emerald-400/20 font-[Inter] snap-y snap-proximity">
+    <!-- Top Notification Bar -->
+    <div class="sticky top-0 z-50 border-b border-white/10 bg-neutral-950/70 backdrop-blur">
+      <div class="mx-auto max-w-7xl px-6 py-2.5">
+        <div class="flex gap-4 gap-x-4 gap-y-4 items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="size-7 rounded-md bg-emerald-500/15 ring-1 ring-emerald-400/30 flex items-center justify-center">
+              <span class="text-emerald-400 text-xs font-semibold tracking-tight">SF</span>
+            </div>
+            <span class="text-sm text-neutral-300">Krishi Sakhi</span>
+          </div>
+          <div class="hidden md:flex items-center gap-6">
+            <a href="#features" class="hover:text-white transition-colors text-sm text-neutral-300">Features</a>
+            <a href="#analytics" class="text-sm text-neutral-300 hover:text-white transition-colors">Analytics</a>
+            <a href="#devices" class="text-sm text-neutral-300 hover:text-white transition-colors">Devices</a>
+            <a href="#pricing" class="text-sm text-neutral-300 hover:text-white transition-colors">Pricing</a>
+            <a href="#faq" class="hover:text-white transition-colors text-sm text-neutral-300">FAQ</a>
+            <a href="#contact" class="text-sm text-neutral-300 hover:text-white transition-colors">Contact</a>
+          </div>
+         <div class="flex items-center gap-3">
+    <!-- Farmer Login Button -->
+    <form action="/farm/FarmerLogin" method="get" style="display:inline-block; margin-left:10px;">
+        <button type="submit"
+                class="text-sm text-neutral-300 hover:text-white transition-colors">
+            Farmer Login
+        </button>
+    </form>
+
+    <!-- Farmer Sign-Up Button -->
+    <form action="/farm/FarmerSignup" method="get" style="display:inline-block;">
+        <button type="submit"
+                class="inline-flex items-center gap-2 rounded-md bg-white text-neutral-900 px-3.5 py-2 text-sm font-medium tracking-tight hover:bg-neutral-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400/60">
+            Farmer Sign-Up
+        </button>
+    </form>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <header id="home" class="relative min-h-[92vh] snap-start">
+      <div class="absolute inset-0 -z-10" style="background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&amp;w=2070&amp;auto=format&amp;fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
+      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-950/60 via-neutral-950/70 to-neutral-950"></div>
+
+      <div class="md:pt-28 md:pb-24 max-w-7xl mr-auto ml-auto pt-20 pr-6 pb-16 pl-6">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-neutral-900/40 px-2.5 py-1.5 text-xs text-neutral-300 backdrop-blur">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" class="lucide lucide-sparkles size-4 text-emerald-400"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
+            <span>New: AI-driven irrigation scheduling</span>
+          </div>
+          <h1 class="mt-6 text-4xl md:text-6xl tracking-tight font-semibold text-white">
+            Grow smarter with real-time crop and soil intelligence
+          </h1>
+          <p class="mt-5 text-base md:text-lg text-neutral-300">
+            Connect your fields, sensors, and weather to a single dashboard. Predict irrigation, reduce inputs, and increase yield using live analytics.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row items-center gap-3">
+            <a href="#cta" class="inline-flex items-center gap-2 rounded-md bg-emerald-500 text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-emerald-400 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="leaf" class="lucide lucide-leaf size-4"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg> Start free trial
+            </a>
+            <a href="#features" class="inline-flex items-center gap-2 rounded-md border border-white/15 bg-neutral-900/50 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-neutral-800/60 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="play" class="lucide lucide-play size-4"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg> See how it works
+            </a>
+          </div>
+
+          <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="rounded-lg border border-white/10 bg-neutral-900/40 p-3">
+              <div class="text-xs text-neutral-400">Water saved</div>
+              <div class="mt-1 text-xl font-semibold tracking-tight text-white">22%</div>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-neutral-900/40 p-3">
+              <div class="text-xs text-neutral-400">Yield boost</div>
+              <div class="mt-1 text-xl font-semibold tracking-tight text-white">+13%</div>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-neutral-900/40 p-3">
+              <div class="text-xs text-neutral-400">Devices online</div>
+              <div class="mt-1 text-xl font-semibold tracking-tight text-white">124</div>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-neutral-900/40 p-3">
+              <div class="text-xs text-neutral-400">Hectares tracked</div>
+              <div class="mt-1 text-xl font-semibold tracking-tight text-white">3,480</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trustbar -->
+      <div class="mx-auto max-w-7xl px-6 pb-16">
+        <div class="rounded-xl border border-white/10 bg-neutral-900/40 p-4">
+          <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-2 text-neutral-400">
+            <span class="text-xs tracking-tight">Trusted by farms of all sizes</span>
+            <div class="h-5 w-px bg-white/10"></div>
+            <div class="flex items-center gap-6 text-sm">
+              <span class="tracking-tight">AGX</span>
+              <span class="tracking-tight">CROPLAB</span>
+              <span class="tracking-tight">FIELDCO</span>
+              <span class="tracking-tight">HARVESTIQ</span>
+              <span class="tracking-tight">SOILNET</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sticky feature narrative -->
+    <section id="features" class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div class="grid lg:grid-cols-2 gap-10">
+          <div class="lg:sticky lg:top-24 self-start">
+            <h2 class="text-3xl md:text-4xl tracking-tight font-semibold text-white">Everything your smart farm needs</h2>
+            <p class="mt-3 text-neutral-300">From soil to sky, see it all in one place. Insights update in real time as your fields change.</p>
+
+            <div class="mt-6 inline-flex items-center gap-2 rounded-md border border-white/10 bg-neutral-900/40 px-3 py-2 text-xs text-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="switch-camera" class="lucide lucide-switch-camera size-4 text-emerald-400"><path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"></path><path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5"></path><circle cx="12" cy="12" r="3"></circle><path d="m18 22-3-3 3-3"></path><path d="m6 2 3 3-3 3"></path></svg>
+              Scroll the list to explore
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="sprout" class="lucide lucide-sprout size-5 text-emerald-400"><path d="M7 20h10"></path><path d="M10 20c5.5-2.5.8-6.4 3-10"></path><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"></path><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold tracking-tight">Crop health scanning</h3>
+                  <p class="mt-1 text-sm text-neutral-300">Satellite NDVI and drone imagery highlight stress early for targeted action.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="droplets" class="lucide lucide-droplets size-5 text-emerald-400"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path></svg>
+                </div>
+                <div class="">
+                  <h3 class="text-lg font-semibold tracking-tight">Precision irrigation</h3>
+                  <p class="mt-1 text-sm text-neutral-300">AI scheduling adjusts waterings based on evapotranspiration and soil balance.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="sun" class="lucide lucide-sun size-5 text-emerald-400"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                </div>
+                <div class="">
+                  <h3 class="text-lg font-semibold tracking-tight">Hyperlocal weather</h3>
+                  <p class="mt-1 text-sm text-neutral-300">Forecasts and frost alerts tuned to your fields, not the nearest city.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="radar" class="lucide lucide-radar size-5 text-emerald-400"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"></path><path d="M4 6h.01"></path><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"></path><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"></path><path d="M12 18h.01"></path><path d="M17.99 11.66A6 6 0 0 1 15.77 16.67"></path><circle cx="12" cy="12" r="2"></circle><path d="m13.41 10.59 5.66-5.66"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold tracking-tight">Pest and disease watch</h3>
+                  <p class="mt-1 text-sm text-neutral-300">Risk scoring and regional signals so you spray only when needed.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="bell-ring" class="lucide lucide-bell-ring size-5 text-emerald-400"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M22 8c0-2.3-.8-4.3-2-6"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path><path d="M4 2C2.8 3.7 2 5.7 2 8"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold tracking-tight">Smart alerts</h3>
+                  <p class="mt-1 text-sm text-neutral-300">Soil moisture lows, valve faults, heat spikes—notify the right person automatically.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+              <div class="flex items-start gap-4">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map" class="lucide lucide-map size-5 text-emerald-400"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold tracking-tight">Field maps</h3>
+                  <p class="mt-1 text-sm text-neutral-300">Layer moisture, vegetation, and equipment locations to plan faster.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </section>
+
+    <!-- Analytics -->
+    <section id="analytics" class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 pb-20">
+        <div class="rounded-2xl border border-white/10 bg-neutral-900/50 p-6 md:p-8">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl tracking-tight font-semibold text-white">Soil moisture trends</h3>
+              <p class="mt-2 text-sm text-neutral-300">Track root-zone moisture across zones with recommendations to keep crops in the sweet spot.</p>
+              <div class="mt-6">
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                    <div class="text-xs text-neutral-400">Avg Moisture</div>
+                    <div class="text-xl font-semibold tracking-tight">28%</div>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                    <div class="text-xs text-neutral-400">Irrigation Today</div>
+                    <div class="text-xl font-semibold tracking-tight">12,400 L</div>
+                  </div>
+                  <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                    <div class="text-xs text-neutral-400">ET₀</div>
+                    <div class="text-xl font-semibold tracking-tight">5.1 mm</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 flex items-center gap-2 text-xs text-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" class="lucide lucide-info size-4 text-emerald-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                Animations disabled for performance. Data updates live in the app.
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-neutral-950 p-4 md:p-5">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-medium tracking-tight">Zone A - Vineyard</div>
+                  <div class="flex items-center gap-2 text-xs text-neutral-400">
+                    <span class="inline-flex items-center gap-1">
+                      <span class="size-2 rounded-full bg-emerald-400"></span> Moisture
+                    </span>
+                    <span class="inline-flex items-center gap-1">
+                      <span class="size-2 rounded-full bg-lime-400"></span> Irrigation
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <div class="relative h-56 w-full">
+                    <div class="h-full w-full rounded-md border border-white/10 bg-neutral-950 p-2">
+                      <div class="h-full w-full">
+                        <canvas id="moistChart" style="display: block; box-sizing: border-box; height: 206px; width: 481px;" width="481" height="206"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-3">
+                <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="text-xs text-neutral-400">Forecast</div>
+                      <div class="text-lg font-semibold tracking-tight">Hold water</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="cloud-sun" class="lucide lucide-cloud-sun size-5 text-neutral-300"><path d="M12 2v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="M20 12h2"></path><path d="m19.07 4.93-1.41 1.41"></path><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path></svg>
+                  </div>
+                </div>
+                <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-3">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="text-xs text-neutral-400">Next run</div>
+                      <div class="text-lg font-semibold tracking-tight">Tonight 2am</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" class="lucide lucide-clock size-5 text-neutral-300"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </section>
+
+    <!-- Parallax CTA band -->
+    <section class="relative snap-start">
+      <div class="relative overflow-hidden rounded-none md:rounded-2xl mx-0 md:mx-6">
+        <div class="absolute inset-0 -z-10" style="background-image: url('https://images.unsplash.com/photo-1615716277668-4f3b0b7b5f47?q=80&amp;w=2069&amp;auto=format&amp;fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
+        <div class="absolute inset-0 -z-10 bg-gradient-to-r from-neutral-950/80 via-neutral-950/60 to-neutral-950/80"></div>
+        <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <h3 class="text-2xl md:text-3xl tracking-tight font-semibold">Turn field data into better decisions</h3>
+              <p class="mt-2 text-neutral-300">Connect your sensors and get actionable insights in minutes.</p>
+            </div>
+            <a id="cta" href="#pricing" class="inline-flex items-center gap-2 rounded-md bg-white text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-neutral-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="rocket" class="lucide lucide-rocket size-4"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg> Get started
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Devices -->
+    <section id="devices" class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div class="mb-8 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
+          <div>
+            <h3 class="text-3xl tracking-tight font-semibold text-white">Your device network</h3>
+            <p class="mt-2 text-neutral-300">Gateways, probes, valves, weather stations—online and in sync.</p>
+          </div>
+          <!-- Custom toggle: Units -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-neutral-400">Units</span>
+            <button id="unitToggle" type="button" class="relative inline-flex items-center rounded-full border border-white/15 bg-neutral-900/60 p-1 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              <span class="px-2 py-1 text-xs font-medium tracking-tight rounded-full bg-emerald-500 text-neutral-900">Metric</span>
+              <span class="px-2 py-1 text-xs font-medium tracking-tight rounded-full text-neutral-300">Imperial</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Device card -->
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border border-emerald-400/20 bg-emerald-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="antenna" class="lucide lucide-antenna size-5 text-emerald-400"><path d="M2 12 7 2"></path><path d="m7 12 5-10"></path><path d="m12 12 5-10"></path><path d="m17 12 5-10"></path><path d="M4.5 7h15"></path><path d="M12 16v6"></path></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">GW-Alpha</div>
+                  <div class="text-xs text-neutral-400">Gateway • North field</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 text-emerald-300 px-2 py-1 text-xs border border-emerald-400/20">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span> Online
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Uptime</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">99.9%</div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Devices</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">42</div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Latency</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">52 ms</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border p-2 border-lime-400/20 bg-lime-500/10">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="gauge" class="lucide lucide-gauge size-5 text-lime-400"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">Soil-Probe-21</div>
+                  <div class="text-xs text-neutral-400">Moisture • Zone A</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 text-emerald-300 px-2 py-1 text-xs border border-emerald-400/20">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span> Online
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Depth</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">30 cm</span><span class="imperial hidden">12 in</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Moisture</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">31%</div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Temp</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">18°C</span><span class="imperial hidden">64°F</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border border-amber-400/20 bg-amber-500/10 p-2">
+                  <i data-lucide="sprinkler" class="size-5 text-amber-400"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">Valve-7</div>
+                  <div class="text-xs text-neutral-400">Irrigation • Orchard</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-red-500/15 text-red-300 px-2 py-1 text-xs border border-red-400/20">
+                <span class="size-1.5 rounded-full bg-red-400"></span> Offline
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Flow</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">2,100 L/h</span><span class="imperial hidden">554 gph</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Pressure</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">2.8 bar</span><span class="imperial hidden">41 psi</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Last seen</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">14m ago</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border border-fuchsia-400/20 bg-fuchsia-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="cloud-rain" class="lucide lucide-cloud-rain size-5 text-fuchsia-400"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path><path d="M16 14v6"></path><path d="M8 14v6"></path><path d="M12 16v6"></path></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">WX-Base</div>
+                  <div class="text-xs text-neutral-400">Weather • Central</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 text-emerald-300 px-2 py-1 text-xs border border-emerald-400/20">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span> Online
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Wind</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">14 km/h</span><span class="imperial hidden">9 mph</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Rain</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">2.6 mm</span><span class="imperial hidden">0.10 in</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Humidity</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">61%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border border-lime-400/20 bg-lime-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="thermometer-sun" class="lucide lucide-thermometer-sun size-5 text-lime-400"><path d="M12 9a4 4 0 0 0-2 7.5"></path><path d="M12 3v2"></path><path d="m6.6 18.4-1.4 1.4"></path><path d="M20 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path><path d="M4 13H2"></path><path d="M6.34 7.34 4.93 5.93"></path></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">Canopy-Temp-3</div>
+                  <div class="text-xs text-neutral-400">Infrared • Zone C</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 text-emerald-300 px-2 py-1 text-xs border border-emerald-400/20">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span> Online
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Canopy</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">26°C</span><span class="imperial hidden">79°F</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Delta</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">+2.1°C</div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Battery</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">87%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/10 bg-neutral-900/50 p-5 hover:border-white/20 transition-colors">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="rounded-md border border-rose-400/20 bg-rose-500/10 p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="radio" class="lucide lucide-radio size-5 text-rose-400"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path></svg>
+                </div>
+                <div>
+                  <div class="text-sm font-medium tracking-tight">DroneLink</div>
+                  <div class="text-xs text-neutral-400">UAV • South lots</div>
+                </div>
+              </div>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 text-emerald-300 px-2 py-1 text-xs border border-emerald-400/20">
+                <span class="size-1.5 rounded-full bg-emerald-400"></span> Online
+              </span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-xs">
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Missions</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">4 today</div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Coverage</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight"><span class="metric">320 ha</span><span class="imperial hidden">791 ac</span></div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-neutral-900/70 p-2">
+                <div class="text-neutral-400">Status</div>
+                <div class="mt-0.5 text-sm font-semibold tracking-tight">Landing</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Horizontal snap carousel -->
+        <div class="mt-10">
+          <h4 class="text-lg font-semibold tracking-tight">Crop insights</h4>
+          <div class="mt-3 overflow-x-auto">
+            <div class="flex gap-4 snap-x snap-mandatory">
+              <div class="min-w-[260px] snap-start rounded-xl border border-white/10 bg-neutral-900/60 p-4 hover:border-white/20 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-medium tracking-tight">Wheat • Block 5</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="wheat" class="lucide lucide-wheat size-5 text-neutral-300"><path d="M2 22 16 8"></path><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"></path><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"></path><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"></path><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z"></path><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"></path><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"></path><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"></path></svg>
+                </div>
+                <p class="mt-2 text-xs text-neutral-300">Flag leaf emergence in 3–4 days. Avoid water stress.</p>
+              </div>
+              <div class="min-w-[260px] snap-start rounded-xl border border-white/10 bg-neutral-900/60 p-4 hover:border-white/20 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-medium tracking-tight">Corn • North</div>
+                  <i data-lucide="harvest" class="size-5 text-neutral-300"></i>
+                </div>
+                <p class="mt-2 text-xs text-neutral-300">Nitrogen deficiency risk low. Scout after rainfall.</p>
+              </div>
+              <div class="min-w-[260px] snap-start rounded-xl border border-white/10 bg-neutral-900/60 p-4 hover:border-white/20 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-medium tracking-tight">Vines • Terrace</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="grape" class="lucide lucide-grape size-5 text-neutral-300"><path d="M22 5V2l-5.89 5.89"></path><circle cx="16.6" cy="15.89" r="3"></circle><circle cx="8.11" cy="7.4" r="3"></circle><circle cx="12.35" cy="11.65" r="3"></circle><circle cx="13.91" cy="5.85" r="3"></circle><circle cx="18.15" cy="10.09" r="3"></circle><circle cx="6.56" cy="13.2" r="3"></circle><circle cx="10.8" cy="17.44" r="3"></circle><circle cx="5" cy="19" r="3"></circle></svg>
+                </div>
+                <p class="mt-2 text-xs text-neutral-300">Canopy temp differential suggests mild heat stress mid-day.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <h3 class="text-3xl tracking-tight font-semibold">Simple pricing for every farm</h3>
+          <p class="mt-2 text-neutral-300">No setup fees. Cancel anytime. Volume discounts available.</p>
+        </div>
+
+        <!-- Billing Toggle -->
+        <div class="mt-6 flex items-center justify-center">
+          <button id="billingToggle" type="button" class="relative inline-flex items-center gap-2 rounded-full border border-white/15 bg-neutral-900/60 p-1 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+            <span class="px-3 py-1 text-xs font-medium tracking-tight rounded-full bg-emerald-500 text-neutral-900">Monthly</span>
+            <span class="px-3 py-1 text-xs font-medium tracking-tight rounded-full text-neutral-300">Yearly -20%</span>
+          </button>
+        </div>
+
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6 hover:border-white/20 transition-colors">
+            <div class="flex items-start justify-between">
+              <div>
+                <h4 class="text-xl font-semibold tracking-tight">Starter</h4>
+                <p class="mt-1 text-sm text-neutral-300">For small farms getting started with sensors.</p>
+              </div>
+              <i data-lucide="seedling" class="size-6 text-emerald-400"></i>
+            </div>
+            <div class="mt-5 flex items-baseline gap-2">
+              <span class="text-3xl font-semibold tracking-tight">$<span class="price-monthly">19</span><span class="price-yearly hidden">15</span></span>
+              <span class="text-sm text-neutral-400">/mo</span>
+            </div>
+            <ul class="mt-5 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> Up to 25 devices</li>
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> Basic analytics</li>
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> Email alerts</li>
+            </ul>
+            <a href="#contact" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-white text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-neutral-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              Choose Starter
+            </a>
+          </div>
+
+          <div class="relative rounded-2xl border border-emerald-400/30 bg-neutral-900/70 p-6 hover:border-emerald-400/50 transition-colors">
+            <div class="absolute -top-3 right-6 rounded-full border border-emerald-400/20 bg-emerald-500/15 px-2 py-1 text-[10px] font-medium tracking-tight text-emerald-300">Popular</div>
+            <div class="flex items-start justify-between">
+              <div>
+                <h4 class="text-xl font-semibold tracking-tight">Pro</h4>
+                <p class="mt-1 text-sm text-neutral-300">Advanced automation and analytics for growing operations.</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="cpu" class="lucide lucide-cpu size-6 text-emerald-400"><rect width="16" height="16" x="4" y="4" rx="2"></rect><rect width="6" height="6" x="9" y="9" rx="1"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg>
+            </div>
+            <div class="mt-5 flex items-baseline gap-2">
+              <span class="text-3xl font-semibold tracking-tight">$<span class="price-monthly">49</span><span class="price-yearly hidden">39</span></span>
+              <span class="text-sm text-neutral-400">/mo</span>
+            </div>
+            <ul class="mt-5 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> Unlimited devices</li>
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> AI irrigation scheduling</li>
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> SMS and webhook alerts</li>
+              <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check size-4 text-emerald-400"><path d="M20 6 9 17l-5-5"></path></svg> Priority support</li>
+            </ul>
+            <a href="#contact" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-emerald-500 text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-emerald-400 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+              Choose Pro
+            </a>
+          </div>
+        </div>
+
+        <p class="mt-4 text-center text-xs text-neutral-400">All plans include unlimited fields, users, and historical data export.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&amp;w=100&amp;h=100&amp;auto=format&amp;fit=crop" alt="Person" class="size-9 rounded-full object-cover">
+              <div>
+                <div class="text-sm font-medium tracking-tight">Ava Singh</div>
+                <div class="text-xs text-neutral-400">Vineyard Manager</div>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-neutral-300">We cut water use by 20% without losing yield. The alerts are spot-on and easy to act on.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&amp;w=100&amp;h=100&amp;auto=format&amp;fit=crop" alt="Person" class="size-9 rounded-full object-cover">
+              <div>
+                <div class="text-sm font-medium tracking-tight">Miguel Ortega</div>
+                <div class="text-xs text-neutral-400">Row Crop Farmer</div>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-neutral-300">Setup took an afternoon and now I know exactly when and where to irrigate.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&amp;w=100&amp;h=100&amp;auto=format&amp;fit=crop" alt="Person" class="size-9 rounded-full object-cover">
+              <div>
+                <div class="text-sm font-medium tracking-tight">Elena Rossi</div>
+                <div class="text-xs text-neutral-400">Orchard Owner</div>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-neutral-300">The dashboard brings weather, sensors, and valves into one clear picture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="relative snap-start">
+      <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
+        <h3 class="text-3xl tracking-tight font-semibold text-white text-center">Frequently asked questions</h3>
+        <div class="mt-8 divide-y divide-white/10 rounded-2xl border border-white/10 bg-neutral-900/60">
+          <details class="group p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between">
+              <span class="text-sm font-medium tracking-tight">Does it work with my existing sensors?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down size-4 text-neutral-300 transition-transform group-open:rotate-180"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
+            <p class="mt-3 text-sm text-neutral-300">Yes. We support Modbus, LoRaWAN, and most common probes and stations. Contact us for custom integrations.</p>
+          </details>
+          <details class="group p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between">
+              <span class="text-sm font-medium tracking-tight">Is there offline support?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down size-4 text-neutral-300 transition-transform group-open:rotate-180"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
+            <p class="mt-3 text-sm text-neutral-300">Gateways buffer data and sync when back online. You keep your history intact.</p>
+          </details>
+          <details class="group p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between">
+              <span class="text-sm font-medium tracking-tight">Can I invite my agronomist?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down size-4 text-neutral-300 transition-transform group-open:rotate-180"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
+            <p class="mt-3 text-sm text-neutral-300">Absolutely. Add unlimited users with role-based permissions on any plan.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="relative snap-start">
+      <div class="mx-auto max-w-7xl px-6 pb-24">
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6 md:p-8">
+            <h3 class="text-2xl tracking-tight font-semibold">Talk to our team</h3>
+            <p class="mt-2 text-sm text-neutral-300">Get a personalized walkthrough and see how it fits your operation.</p>
+            <form class="mt-6 grid grid-cols-1 gap-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-neutral-400">Full name</label>
+                  <input type="text" placeholder="Jane Farmer" class="mt-1 w-full rounded-md border border-white/15 bg-neutral-950 px-3 py-2 text-sm outline-none ring-0 focus:border-emerald-400/60">
+                </div>
+                <div>
+                  <label class="text-xs text-neutral-400">Email</label>
+                  <input type="email" placeholder="you@farm.com" class="mt-1 w-full rounded-md border border-white/15 bg-neutral-950 px-3 py-2 text-sm outline-none ring-0 focus:border-emerald-400/60">
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-neutral-400">Farm size</label>
+                <input type="text" placeholder="e.g., 500 ha / 1200 ac" class="mt-1 w-full rounded-md border border-white/15 bg-neutral-950 px-3 py-2 text-sm outline-none ring-0 focus:border-emerald-400/60">
+              </div>
+              <div>
+                <label class="text-xs text-neutral-400">Message</label>
+                <textarea rows="4" placeholder="What are you looking to improve?" class="mt-1 w-full rounded-md border border-white/15 bg-neutral-950 px-3 py-2 text-sm outline-none ring-0 focus:border-emerald-400/60"></textarea>
+              </div>
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-emerald-500 text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-emerald-400 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="send" class="lucide lucide-send size-4"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg> Send message
+              </button>
+            </form>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/60 p-6 md:p-8">
+            <h3 class="text-2xl tracking-tight font-semibold">Stay in the loop</h3>
+            <p class="mt-2 text-sm text-neutral-300">Product updates and field tips, twice a month.</p>
+            <form class="mt-6 flex flex-col sm:flex-row gap-3">
+              <input type="email" placeholder="Email address" class="w-full rounded-md border border-white/15 bg-neutral-950 px-3 py-2 text-sm outline-none ring-0 focus:border-emerald-400/60">
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-white text-neutral-900 px-4 py-2.5 text-sm font-medium tracking-tight hover:bg-neutral-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="inbox" class="lucide lucide-inbox size-4"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg> Subscribe
+              </button>
+            </form>
+            <div class="mt-6 rounded-lg border border-white/10 bg-neutral-950 p-4">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" class="lucide lucide-map-pin size-5 text-neutral-300"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <div class="text-sm">Regional agronomist support in 20+ countries</div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1463680942456-e4230dbeaec7?q=80&amp;w=2070&amp;auto=format&amp;fit=crop" alt="Farm map" class="mt-4 h-40 w-full rounded-md object-cover">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10">
+      <div class="mx-auto max-w-7xl px-6 py-10">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="flex items-center gap-3">
+            <div class="size-7 rounded-md bg-emerald-500/15 ring-1 ring-emerald-400/30 flex items-center justify-center">
+              <span class="text-emerald-400 text-xs font-semibold tracking-tight">SF</span>
+            </div>
+            <span class="text-sm text-neutral-400">SmartFarm © <span id="year">2025</span></span>
+          </div>
+          <div class="flex items-center gap-6 text-sm">
+            <a href="#features" class="text-neutral-300 hover:text-white">Features</a>
+            <a href="#devices" class="text-neutral-300 hover:text-white">Devices</a>
+            <a href="#pricing" class="text-neutral-300 hover:text-white">Pricing</a>
+            <a href="#faq" class="text-neutral-300 hover:text-white">FAQ</a>
+            <a href="#contact" class="text-neutral-300 hover:text-white">Contact</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="#" class="inline-flex items-center justify-center rounded-md border border-white/15 bg-neutral-900/60 p-2 hover:bg-neutral-800/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="twitter" class="lucide lucide-twitter size-4 text-neutral-300"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center rounded-md border border-white/15 bg-neutral-900/60 p-2 hover:bg-neutral-800/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="github" class="lucide lucide-github size-4 text-neutral-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+            </a>
+            <a href="#" class="inline-flex items-center justify-center rounded-md border border-white/15 bg-neutral-900/60 p-2 hover:bg-neutral-800/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail size-4 text-neutral-300"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Initialize icons
+      document.addEventListener('DOMContentLoaded', function () {
+        lucide.createIcons({
+          attrs: { 'stroke-width': 1.5 }
+        });
+      });
+
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Chart.js moisture chart (animations disabled)
+      const ctx = document.getElementById('moistChart').getContext('2d');
+      const moistChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['6am','8am','10am','12pm','2pm','4pm','6pm'],
+          datasets: [
+            {
+              label: 'Moisture',
+              data: [34, 33, 31, 29, 27, 28, 30],
+              borderColor: '#34d399',
+              backgroundColor: 'rgba(52, 211, 153, 0.15)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 2,
+              borderWidth: 2
+            },
+            {
+              label: 'Irrigation',
+              data: [0, 0, 0, 0, 0, 6, 0],
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.15)',
+              tension: 0.35,
+              borderDash: [4,4],
+              fill: true,
+              pointRadius: 0,
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          animation: false,
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: true, mode: 'index', intersect: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#a3a3a3', font: { size: 11 } } },
+            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#a3a3a3', font: { size: 11 }, callback: (v) => v + '%' } }
+          },
+          elements: { line: { tension: 0.35 } }
+        }
+      });
+
+      // Billing toggle
+      const billingToggle = document.getElementById('billingToggle');
+      billingToggle?.addEventListener('click', () => {
+        document.querySelectorAll('.price-monthly').forEach(el => el.classList.toggle('hidden'));
+        document.querySelectorAll('.price-yearly').forEach(el => el.classList.toggle('hidden'));
+        // Swap pill styles
+        const first = billingToggle.children[0];
+        const second = billingToggle.children[1];
+        first.classList.toggle('bg-emerald-500'); first.classList.toggle('text-neutral-900');
+        second.classList.toggle('bg-emerald-500'); second.classList.toggle('text-neutral-900');
+      });
+
+      // Units toggle
+      const unitToggle = document.getElementById('unitToggle');
+      unitToggle?.addEventListener('click', () => {
+        document.querySelectorAll('.metric').forEach(el => el.classList.toggle('hidden'));
+        document.querySelectorAll('.imperial').forEach(el => el.classList.toggle('hidden'));
+        // Toggle pill selection
+        const m = unitToggle.children[0];
+        const i = unitToggle.children[1];
+        m.classList.toggle('bg-emerald-500'); m.classList.toggle('text-neutral-900');
+        i.classList.toggle('bg-emerald-500'); i.classList.toggle('text-neutral-900');
+      });
+    </script>
+  
+</body></html>

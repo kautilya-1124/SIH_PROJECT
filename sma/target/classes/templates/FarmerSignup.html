@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmer Sign-Up</title>
+</head>
+<body>
+<h2>Farmer Sign-Up</h2>
+
+<!-- Flash Message -->
+<div th:if="${msg != null}" th:text="${msg}" style="color:green;"></div>
+
+<form th:action="@{/farm/FarmerSignup}" th:object="${farmerInfo}" method="post" enctype="multipart/form-data">
+    
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" placeholder="Enter Name" required/><br><br>
+
+    <label>Phone No:</label>
+    <input type="text" th:field="*{phone}" placeholder="Enter Phone No" required/><br><br>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" placeholder="Enter Email" required/><br><br>
+
+    <label>Address:</label>
+    <textarea th:field="*{address}" placeholder="Enter Address" required></textarea><br><br>
+
+    <label>Pincode:</label>
+    <input type="text" th:field="*{pincode}" placeholder="Enter Pincode" required/><br><br>
+
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" placeholder="Enter Password" required/><br><br>
+
+    <label>Confirm Password:</label>
+    <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password" required/><br><br>
+
+    <label>Profile Pic:</label>
+    <input type="file" name="profilePicFile" accept="image/*"/><br><br>
+
+    <button type="submit">Sign Up</button>
+</form>
+
+<br>
+<a href="/farm/">Back to Home</a>
+</body>
+</html>

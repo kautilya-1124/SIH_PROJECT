@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm List</title>
+</head>
+<body>
+    <h2>All Farms</h2>
+    <a href="/farm/form">Add New Farm</a>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pincode</th>
+                <th>Soil Type</th>
+                <th>Irrigation Type</th>
+                <th>Water Resource</th>
+                <th>Area</th>
+                <th>Created At</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="farm : ${farms}">
+                <td th:text="${farm.id}"></td>
+                <td th:text="${farm.pincode}"></td>
+                <td th:text="${farm.soilType}"></td>
+                <td th:text="${farm.irrigationType}"></td>
+                <td th:text="${farm.waterResource}"></td>
+                <td th:text="${farm.area}"></td>
+  <td th:text="${#temporals.format(farm.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+
+                <td>
+                    <span th:if="${farm.farmImage != null}" th:text="${farm.farmImage.substring(0,20) + '...'}"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
