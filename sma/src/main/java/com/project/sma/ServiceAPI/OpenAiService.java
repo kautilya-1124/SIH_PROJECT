@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class OpenAiService {
 
-    private static final String OPENAI_API_KEY = "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"; // 🔑 Add your OpenAI API key
+    private static final String OPENAI_API_KEY = "bhai apni api lga le"; // 🔑 Add your OpenAI API key
     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
     public static String getRecommendation(FarmInfo farmInfo) {
@@ -48,4 +48,5 @@ public class OpenAiService {
         Map message = (Map) choices.get("message");
         return (String) message.get("content");
     }
+
 }
